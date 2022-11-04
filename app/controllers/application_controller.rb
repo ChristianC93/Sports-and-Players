@@ -3,7 +3,7 @@ class ApplicationController < Sinatra::Base
   
   # Add your routes here
   get "/sports" do
-    Sport.all.to_json(include:[:players])
+    Sport.all.to_json(include: [ :players ])
   end
 
   get "/sports/:id" do
@@ -18,6 +18,42 @@ class ApplicationController < Sinatra::Base
       name: params[:name]
     ) 
     sport.to_json
+  end
+
+  get "/players" do
+    Player.all.to_json(include: [:sport]) 
+  end
+
+  get "/players/:id" do
+    player = Player.find(params[:id])
+    player.to_json(include: [:sport]) 
+  end
+
+  post "/players" do
+    player = Player.create(
+      name: params[:name],
+      age: params[:age],
+      active: params[:active],
+      sport_id: params[:sport_id]
+    )
+    player.to_json
+  end
+
+  patch "/players/:id" do 
+    player = Player.find(params[:id])
+    player.update(
+      name: params[:name],
+      age: params[:age],
+      active: params[:active],
+      sport_id: params[:sport_id]
+    )
+    player.to_json
+  end
+
+  delete "/players/:id" do 
+    player = Player.find(params[:id])
+    player.destroy
+    player.to_json
   end
 
 end
