@@ -8,9 +8,16 @@ class ApplicationController < Sinatra::Base
 
   get "/sports/:id" do
     sport = Sport.find(params[:id])
-    sport.to_json(only:[ :id, :name ], include: {
-      players: {only:[ :name, :age, :active ]}
+    sport.to_json( only:[ :id, :name ], include: {
+      players: { only:[ :name, :age, :active ]}
     })
-  end 
+  end
+  
+  post "/sports" do
+    sport = Sport.create(
+      name: params[:name]
+    ) 
+    sport.to_json
+  end
 
 end
