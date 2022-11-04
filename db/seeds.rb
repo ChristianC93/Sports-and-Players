@@ -5,6 +5,4 @@ Sport.create(name: "Basketball");
 Sport.create(name: "Baseball");
 
 # Seed your database here
-
-
 puts "✅ Done seeding!"
