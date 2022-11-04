@@ -1,2 +1,2 @@
-class Sport
+class Sport < ActiveRecord::Base
 end
